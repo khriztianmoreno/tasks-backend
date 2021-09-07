@@ -16,7 +16,11 @@ const auth = (req, res, next) => {
     // cargar el usuario a partir del userId que llega en el token
     next()
   } catch (err) {
-    console.log(err)
+    if (err.name === "JsonWebTokenError") {
+      res.status(401).json({ error: "Invalid Token" })
+      return
+    }
+    next(err)
   }
 }
 

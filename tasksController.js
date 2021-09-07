@@ -1,12 +1,21 @@
 const store = require('./store')
 
 const list = (req, res) => {
-  res.json(store.list())
+  store.list()
+    .then(tasks => res.json(tasks))
 }
 
-const create = (req, res) => {
-  const task = store.create({ title: req.body.title })
-  res.status(201).json(task)
+const create = async (req, res, next) => {
+  try {
+    const task = await store.create({ title: req.body.title })
+    res.status(201).json(task)
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      res.status(422).json(err.errors)
+    } else {
+      next(err)
+    }
+  }
 }
 
 const destroy = (req, res) => {

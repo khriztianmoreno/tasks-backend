@@ -12,14 +12,15 @@ const auth = async (req, res, next) => {
       res.locals.user = user
       next();
     } else {
-      res.status(403).json({ error: 'No Authorized' });
-    }
-  } catch (err) {
-    if (err.name === 'JsonWebTokenError') {
-      res.status(401).json({ error: 'Invalid Token' });
-      return;
+      res.status(401).json({ response: "not-authorized", message: 'No Authorized' });
     }
     next(err);
+  } catch (err) {
+    if (err.name === 'JsonWebTokenError') {
+      res.status(401).json({ response: "invalid-token", message: 'Invalid Token' });
+    } else if (err.name === 'TokenExpiredError') {
+      res.status(401).json({ response: "token-expired", message: "Token Expired" });
+    }
   }
 };
 

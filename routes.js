@@ -17,10 +17,13 @@ app.post('/login', async (req, res) => {
   const user = await User.authenticate(email, password);
   if (user) {
     // retornamos el JWT
-    const token = jwt.sign({ userId: user._id }, 'secret key');
+    const token = jwt.sign({ 
+      exp: Math.floor(Date.now() / 1000) + (15 * 24 * 60 * 60),
+      userId: user._id 
+    }, 'secret key');
     res.json({ token });
   } else {
-    res.status(401).json({ error: 'Credenciales inválidas' });
+    res.status(401).json({ error: "invalid-credentials", message: 'Credenciales inválidas' });
   }
 });
 

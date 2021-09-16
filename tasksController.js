@@ -1,7 +1,16 @@
 const store = require('./store');
+const Task = require('./task');
 
 const list = async (req, res) => {
-  res.json(await store.list());
+  const page = req.query.page || 1
+  const count = await Task.count()
+  const data = await Task.find({}, null, { skip: (page - 1) * 10, limit: 20 })
+
+  res.json({
+    count,
+    page,
+    data
+  });
 };
 
 const create = async (req, res, next) => {

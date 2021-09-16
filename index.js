@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -6,8 +7,10 @@ const routes = require('./routes');
 const app = express();
 const User = require('./user');
 
+// Variables de entorno
+
 mongoose.connect(
-  'mongodb://127.0.0.1:27017/topv10',
+  process.env.MONGO_URI,
   { useNewUrlParser: true }
 );
 
@@ -28,4 +31,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message });
 });
 
-app.listen(3001, () => console.log('Servidor corriendo ...'));
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT} ...`));

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const auth = async (req, res, next) => {
   try {
     const token = req.get('Authorization');
-    const data = jwt.verify(token, 'secret key'); // { userId: "12345"}
+    const data = jwt.verify(token, process.env.SECRET_KEY || 'secret key'); // { userId: "12345"}
 
     const user = await User.findOne({ _id: mongoose.Types.ObjectId(data.userId) });
     if (user) {

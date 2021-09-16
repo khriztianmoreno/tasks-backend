@@ -11,7 +11,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ 
       exp: Math.floor(Date.now() / 1000) + (15 * 24 * 60 * 60),
       userId: user._id 
-    }, 'secret key');
+    }, process.env.SECRET_KEY || 'secret key');
     res.json({ token });
   } else {
     res.status(401).json({ error: "invalid-credentials", message: 'Credenciales inválidas' });

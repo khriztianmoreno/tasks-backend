@@ -10,6 +10,7 @@ app.post('/tasks', tasksController.create);
 app.delete('/tasks/:id', tasksController.destroy);
 
 app.post('/login', authController.login);
+app.post('/register', authController.register);
 app.get('/me', auth, authController.me);
 
 module.exports = app;

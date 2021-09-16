@@ -18,6 +18,12 @@ const login = async (req, res) => {
   }
 }
 
+const register = async (req, res) => {
+  const { email, password, firstName, lastName } = req.body;
+  const user = await User.create({ email, password, firstName, lastName })
+  res.status(201).json({ email: user.email })
+}
+
 const me = async (req, res) => {
   const { email, firstName, lastName } = res.locals.user
   res.json({ email, firstName, lastName })
@@ -25,5 +31,6 @@ const me = async (req, res) => {
 
 module.exports = {
   login,
+  register,
   me
 }

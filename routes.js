@@ -5,6 +5,9 @@ const { auth } = require('./middlewares');
 
 const app = express.Router();
 
+app.get('/test', (req, res) => {
+  res.json({ status: "ok" })
+})
 app.get('/tasks', auth, tasksController.list);
 app.post('/tasks', tasksController.create);
 app.delete('/tasks/:id', tasksController.destroy);

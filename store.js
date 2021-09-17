@@ -8,7 +8,7 @@ const store = {
   },
 
   async create(task) {
-    return await Task.insertOne(task)
+    return await Task.create(task)
   },
 
   async update(task) {

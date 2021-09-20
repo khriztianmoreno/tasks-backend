@@ -10,7 +10,7 @@ app.get('/test', (req, res) => {
 })
 app.get('/tasks', auth, tasksController.list);
 app.post('/tasks', tasksController.create);
-app.delete('/tasks/:id', tasksController.destroy);
+app.delete('/tasks/:id', auth, tasksController.destroy);
 
 app.post('/login', authController.login);
 app.post('/register', authController.register);

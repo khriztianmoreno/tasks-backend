@@ -16,7 +16,7 @@ const store = {
   },
   
   async delete(id) {
-    return await Task.deleteOne({ _id: task.id })
+    return await Task.deleteOne({ _id: id })
   },
 };
 

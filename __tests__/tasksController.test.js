@@ -72,8 +72,6 @@ describe('GET /tasks', () => {
     expect(data.length).toBe(2)
     expect(page).toBe(1)
 
-    //expect(JSON.stringify(data[0])).toEqual(JSON.stringify(task1._doc))
-
     expect(data[0]._id).toBe(task1._id.toString())
     expect(data[0].title).toBe(task1.title)
     expect(data[0].completed).toBe(task1.completed)
@@ -99,5 +97,37 @@ describe('POST /tasks', () => {
         .send({ title: "Mi primera tarea" })
     
     expect(response.body._id).not.toBeFalsy()
+  })
+})
+
+describe('DELETE /tasks/:id', () => {
+  let token, task;
+  beforeEach(async () => {
+    const user = await User.create({ email: "test@example.com", password: "test1234", firstName: "Pedro", lastName: "Perez" })
+    token = generateJWT(user)
+    task = await Task.create({ title: "Mi tarea" })
+  })
+
+  test('responds 401 if user not authenticated', async () => {
+    const response = await request(app)
+      .delete(`/tasks/${task._id}`)
+    
+      expect(response.statusCode).toBe(401)
+  })
+
+  test('responds 204 if user is authenticated', async () => {
+    const response = await request(app)
+      .delete(`/tasks/${task._id}`)
+      .set('Authorization', token)
+    
+      expect(response.statusCode).toBe(204)
+  })
+
+  test('deletes task', async () => {
+    const response = await request(app)
+      .delete(`/tasks/${task._id}`)
+      .set('Authorization', token)
+
+    expect(await Task.findById(task._id)).toBeNull()
   })
 })

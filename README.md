@@ -1,4 +1,4 @@
-# the-jobs-api 💻
+# the-tasks-api 💻
 
 Hello and welcome! This Node.JS challenge project demonstrates a simple architecture building a full API with Node.JS, Express.JS, and MongoDB presents an architectural demo of these features:
 

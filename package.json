@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "start:dev": "npx nodemon index.js",
-    "test": "echo 'test'"
+    "test": "echo 'test'",
+    "lint": "eslint src --ext .js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "author": "Make it Real",
   "license": "MIT",
@@ -25,6 +27,7 @@
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
     "jest": "^27.2.0",
     "nodemon": "^2.0.12",
     "supertest": "^6.1.6"

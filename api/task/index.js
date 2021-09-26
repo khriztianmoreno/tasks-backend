@@ -99,6 +99,6 @@ router.get('/', controller.index)
  */
 router.post('/', controller.create)
 router.delete('/:id', controller.destroy)
-// router.put('/:id', controller.put)
+router.put('/:id', controller.update)
 
 module.exports = router
